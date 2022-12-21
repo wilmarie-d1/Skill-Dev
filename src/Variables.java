@@ -30,4 +30,21 @@ public class Variables {
         Point point1 = new Point(1,1);
         Point point2 = point1;
         point1.x = 2;
+
+        //STRINGS
+        String message ="Hello world" + "!!";
+        message.endsWith("!!");
+        message.startsWith("Hello");
+        message.length();
+        message.indexOf("e");
+        message.toLowerCase();
+        System.out.println();
+
+        //ESCAPE SEQUENCE
+
+        String hello = "Hello \"Wilmarie\"";
+        System.out.println(hello);
+        //c:\Windows\...
+        String windows = "c:\tWindows\\...";
+        System.out.println(windows);
     }}
