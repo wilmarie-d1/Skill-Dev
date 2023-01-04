@@ -4,8 +4,20 @@ public class Methods_Exercise {
     public static void main(String[] args) {
         Scanner season = new Scanner(System.in);
         int number = 1;
-        System.out.println("Please enter a season (1 = Spring, 2 = Summer, 3 = Fall, 4 = Winter");
+        System.out.println("Please enter a season (1 = Spring, 2 = Summer, 3 = Fall, 4 = Winter)");
         number = season.nextInt();
+        if (number == 1) {
+             printSpring();
+        }
+        if (number == 2) {
+            printSummer();
+        }
+        if (number == 3) {
+            printFall();
+        }
+        if (number == 4) {
+            printWinter();
+        }
 
     }
     public static void printSpring() {
