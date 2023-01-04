@@ -11,17 +11,13 @@ public class PassingParameter {
         System.out.println("Please enter another number between 1 and 100");
         number2 = larger.nextInt();
         largeNum = largerNumber(number1, number2);
-        System.out.println("You entered the number " + number1 + "and " + number2);
+        System.out.println("You entered the number " + number1 + " and " + number2);
         System.out.println("The larger number is " + largeNum);
 
     }
 
     public static int largerNumber(int a, int b) {
         return (Math.max(a, b));
-//        if (a >= b) {
-//            return a;
-//         } else {
-//            return b;
-//        }}
+//
     }
 }
