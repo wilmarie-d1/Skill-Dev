@@ -47,4 +47,7 @@ public class Variables {
         //c:\Windows\...
         String windows = "c:\tWindows\\...";
         System.out.println(windows);
+
+        //Arrays
+        int [] numbers = new int[7];
     }}
