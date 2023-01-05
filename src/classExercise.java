@@ -33,6 +33,13 @@ public class classExercise {
  System.out.println("\n The amount of oranges sold in Orlando yearly is: " + orlandoStore.orangesSoldYearly);
         System.out.println("The retail price of oranges sold in Orlando is: " + orlandoStore.orangeRetailPrice);
 
+        double houstonRevenue, orlandoRevenue, seattleRevenue;
+        houstonRevenue = (houstonStore.appleRetailPrice * houstonStore.applesSoldYearly) + (houstonStore.orangeRetailPrice * houstonStore.orangesSoldYearly);
+        orlandoRevenue = (orlandoStore.appleRetailPrice * orlandoStore.applesSoldYearly) + (orlandoStore.orangeRetailPrice * orlandoStore.orangesSoldYearly);
+        seattleRevenue = (seattleStore.appleRetailPrice * seattleStore.applesSoldYearly) + (seattleStore.orangesSoldYearly * seattleStore.orangeRetailPrice);
+        System.out.println("\n The total yearly revenue for apple and oranges in Houston is " + houstonRevenue);
+        System.out.println("The total yearly revenue for apple and oranges in Orlando is " + orlandoRevenue);
+        System.out.println("The total yearly revenue for apple and oranges in Seattle is " + seattleRevenue);
     }
 
 }
