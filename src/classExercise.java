@@ -48,6 +48,14 @@ public class classExercise {
         System.out.println(houstonStore.grossRevenue());
         System.out.println("Seattle Store");
         System.out.println(seattleStore.grossRevenue());
+
+        System.out.println("Houston target is $1050 of apple sales..");
+        System.out.println("It needs to sell " + houstonStore.appleRevenueTarget(1050) + " apples");
+        System.out.println("\nSeattle target is 620 of apple sales..");
+        System.out.println("It needs to sell " + seattleStore.orangeRevenueTarget(620) + " oranges");
+        System.out.println("\nOrlando target is $744 of apple sales..");
+        System.out.println("It needs to sell " + orlandoStore.appleRevenueTarget(744) + " apples");
+
     }
 
 }
@@ -55,11 +63,19 @@ public class classExercise {
 class groceryStore {
     int applesSoldYearly;
     double appleRetailPrice;
-     int orangesSoldYearly;
+    int orangesSoldYearly;
     double orangeRetailPrice;
 
     double grossRevenue () {
         double revenue;
         revenue = (applesSoldYearly * appleRetailPrice) + (orangesSoldYearly * orangeRetailPrice);
     return revenue;
-}}
+}
+        double appleRevenueTarget (double revenue){
+    return revenue/appleRetailPrice;
+        }
+        double orangeRevenueTarget (double revenue) {
+    return revenue/orangeRetailPrice;
+        }
+}
+
