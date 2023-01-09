@@ -43,11 +43,11 @@ public class classExercise {
 
 
         System.out.println("Orlando Store");
-        orlandoStore.grossRevenue();
+        System.out.println(orlandoStore.grossRevenue());
         System.out.println("Houston Store");
-        houstonStore.grossRevenue();
+        System.out.println(houstonStore.grossRevenue());
         System.out.println("Seattle Store");
-        seattleStore.grossRevenue();
+        System.out.println(seattleStore.grossRevenue());
     }
 
 }
@@ -58,9 +58,8 @@ class groceryStore {
      int orangesSoldYearly;
     double orangeRetailPrice;
 
-    void grossRevenue () {
+    double grossRevenue () {
         double revenue;
         revenue = (applesSoldYearly * appleRetailPrice) + (orangesSoldYearly * orangeRetailPrice);
-        System.out.println("Gross revenue is $" + revenue);
-
+    return revenue;
 }}
