@@ -1,0 +1,54 @@
+package bigDinner;
+
+public class Dinner implements Sentence{
+    private String appetizer;
+    private  String drink;
+    private String side;
+    private  String meal;
+    private String dessert;
+
+    public Dinner(String appetizer, String drink, String side, String meal, String dessert) {
+        this.appetizer = appetizer;
+        this.drink = drink;
+        this.side = side;
+        this.meal = meal;
+        this.dessert = dessert;
+    }
+
+
+    public String getAppetizer(){
+        return appetizer;
+    }
+    public String getDrink() {
+        return drink;
+    }
+    public String getSide(){
+        return side;
+    }
+    public String getMeal(){
+        return meal;
+    }
+    public String getDessert() {
+        return dessert;
+    }
+
+    public void setAppetizer (String appetizer){
+        this.appetizer = appetizer;
+    }
+    public void setDrink(String drink){
+        this.drink = drink;
+    }
+    public void setSide(String side) {
+        this.side = side;
+    }
+    public void setMeal(String meal) {
+        this.meal = meal;
+    }
+    public void setDessert(String dessert) {
+        this.dessert = dessert;
+    }
+
+    public String myDinner() {return "WOW! You have " + getAppetizer() + " " + getMeal() + " " + getSide() + " " +  getDrink() + " and a " + getDessert() + " to top it off? That's one big dinner!\n";
+    }
+
+}
