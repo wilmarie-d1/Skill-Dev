@@ -1,5 +1,3 @@
-let map, infoWindow, service;
-
 
 function initAutocomplete() {
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -19,67 +17,99 @@ function initAutocomplete() {
 
     let markers = [];
 
+
+
+    function cards(markers){
+        let html = ``
+
+        markers.forEach((marker) => {
+            html +=
+                `<div class="card" style="width:18rem;">
+                <img src=${marker.image} class="card-img-top" alt="img">
+                 <div class="card-body">
+                    <h5 class="card-title">${marker.title}</h5>
+            <p class="card-text">${marker.description}</p>
+            </div>
+                </div>`
+        })
+
+        return html;
+
+    }
+
+
+
+
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
-    searchBox.addListener("places_changed", () => {
-        const places = searchBox.getPlaces();
+    searchBox.addListener("places_changed",
 
-        if (places.length == 0) {
-            return;
-        }
+        () =>
 
-        // Clear out the old markers.
-        markers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        markers = [];
+        {
+            const places = searchBox.getPlaces();
 
-        // For each place, get the icon, name and location.
-        const bounds = new google.maps.LatLngBounds();
-
-        places.forEach((place) => {
-            if (!place.geometry || !place.geometry.location) {
-                console.log("Returned place contains no geometry");
+            if (places.length == 0) {
                 return;
             }
 
-            const icon = {
-                url: place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25),
-            };
+            // Clear out the old markers.
+            markers.forEach((marker) => {
+                marker.setMap(null);
+            });
+            markers = [];
 
-            // Create a marker for each place.
-            markers.push(
-                new google.maps.Marker({
-                    map,
-                    icon,
-                    title: place.name,
-                    position: place.geometry.location,
-                })
-            );
-            if (place.geometry.viewport) {
-                // Only geocodes have viewport.
-                bounds.union(place.geometry.viewport);
-            } else {
-                bounds.extend(place.geometry.location);
-            }
-        });
-        map.fitBounds(bounds);
-        markers.forEach(marker => console.log(marker))
+            // For each place, get the icon, name and location.
+            const bounds = new google.maps.LatLngBounds();
 
-markers.forEach((marker) => {
+            places.forEach((place) => {
+                if (!place.geometry || !place.geometry.location) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
 
-   console.log(marker.title)
+                const icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25),
+                };
+
+                // Create a marker for each place.
+                markers.push(
+                    new google.maps.Marker({
+                        map,
+                        icon,
+                        title: place.name,
+                        position: place.geometry.location,
+                    })
+                );
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+
+            markers.forEach(marker => console.log( marker.title))
+
+            let cardContainer =  document.getElementById("cards")
+
+           cardContainer.innerHTML = cards(markers);
 
 
 
-})
+            Æ
 
 
 
-        })}
+        })
 
+
+
+}
 window.initAutocomplete = initAutocomplete;
+
