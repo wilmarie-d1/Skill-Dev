@@ -1,95 +1,85 @@
-let map, infoWindow;
+let map, infoWindow, service;
 
 
-// Initialize and add the map
-function initMap() {
-    // The location of Uluru
-    const dallasAquarium = { lat:  32.783537699942244, lng: -96.80533222610609  };
-    const illusionMuseum = {lat: 32.78194478171139, lng: -96.80668837799938};
-
-    // The map, centered at Uluru
+function initAutocomplete() {
     const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 12,
-        center: dallasAquarium,
+        center: { lat:  32.783537699942244, lng: -96.80533222610609 },
+        zoom: 13,
+        mapTypeId: "roadmap",
     });
-    // The marker, positioned at Uluru
-    const marker = new google.maps.Marker({
-        position: dallasAquarium,
-        map: map,
+    // Create the search box and link it to the UI element.
+    const input = document.getElementById("pac-input");
+    const searchBox = new google.maps.places.SearchBox(input);
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
     });
-    const marker2 = new google.maps.Marker({
-        position: illusionMuseum,
-        map: map,
-    });
-    infoWindow = new google.maps.InfoWindow();
 
-    const locationButton = document.createElement("button");
+    let markers = [];
 
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-    locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
 
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found.");
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                },
-                () => {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                }
-            );
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
+        if (places.length == 0) {
+            return;
         }
-    });
+
+        // Clear out the old markers.
+        markers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        const bounds = new google.maps.LatLngBounds();
+
+        places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            const icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25),
+            };
+
+            // Create a marker for each place.
+            markers.push(
+                new google.maps.Marker({
+                    map,
+                    icon,
+                    title: place.name,
+                    position: place.geometry.location,
+                })
+            );
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+        markers.forEach(marker => console.log(marker))
+
+markers.forEach((marker) => {
+
+   console.log(marker.title)
 
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-        browserHasGeolocation
-            ? "Error: The Geolocation service failed."
-            : "Error: Your browser doesn't support geolocation."
-    );
-    infoWindow.open(map);
-}
-const contentString =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<h1 id="firstHeading" class="firstHeading">Dallas Aquarium</h1>' +
-    '<div id="bodyContent">' +
-    "<p><b>The Famous Dallas Aquarium</b>, also referred to as <b>Hibachi Center</b>, is a large " + "Replica habitats containing exotic birds, mammals & fish are open for public tours & private events.\n" +
-    "</p>" +
-    '<p>The Dallas World Aquarium <a href="https://dwazoo.com/">' +
-    "https://dwazoo.com/</a> " +
-    "</p>" +
-    "</div>" +
-    "</div>";
 
-const infowindow2 = new google.maps.InfoWindow({
-    content: contentString,
-    ariaLabel: "Dallas World Museum",
-});
+})
 
 
-marker.addListener("click", () => {
-    infowindow2.open({
-        anchor: marker,
-        map,
-    });
-});
 
+        })}
 
-}
-window.initMap = initMap;
+window.initAutocomplete = initAutocomplete;
