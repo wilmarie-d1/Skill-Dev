@@ -25,9 +25,11 @@ function initAutocomplete() {
         markers.forEach((marker) => {
             html +=
                 `<div class="card" style="width:18rem;">
-                <img src=${marker.image} class="card-img-top" alt="img">
+                <img src=${marker.icon.url} class="card-img-top" alt="img">
                  <div class="card-body">
                     <h5 class="card-title">${marker.title}</h5>
+                    <h5 class="card-address">${marker.position}</h5>
+                    
             <p class="card-text">${marker.description}</p>
             </div>
                 </div>`
@@ -36,9 +38,6 @@ function initAutocomplete() {
         return html;
 
     }
-
-
-
 
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
@@ -94,7 +93,7 @@ function initAutocomplete() {
             });
             map.fitBounds(bounds);
 
-            markers.forEach(marker => console.log( marker.title))
+            markers.forEach(marker => console.log( marker))
 
             let cardContainer =  document.getElementById("cards")
 
@@ -102,14 +101,7 @@ function initAutocomplete() {
 
 
 
-            Æ
-
-
-
         })
 
-
-
 }
-window.initAutocomplete = initAutocomplete;
-
+    window.initAutocomplete = initAutocomplete;
